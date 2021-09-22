@@ -15,8 +15,6 @@ class AddAssignment extends Component {
     constructor(props) {
       super(props);
 	  this.state = {assignmentName:'', dueDate:'', courseId:''};
-	this.inputChanged = this.inputChanged.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
 	};
 	
 	inputChanged = (event) => {
@@ -25,11 +23,10 @@ class AddAssignment extends Component {
  
   handleSubmit = (event) => {
 	event.preventDefault();
-	const token = Cookies.get('XSRF-TOKEN');
     fetch(`${SERVER_URL}/gradebook`, 
       {  
         method: 'POST', 
-		headers: {'Accept': 'application/json','Content-Type': 'application/json', 'X-XSRF-TOKEN': token},
+		headers: {'Accept': 'application/json','Content-Type': 'application/json'},
 		body: JSON.stringify({assignmentName:this.state.assignmentName, dueDate: this.state.dueDate,courseId: this.state.courseId})
       } )
       .then(res => {
